@@ -4,6 +4,47 @@
         <p class="subtitle">Análisis de precios de alquiler en Barcelona</p>
     </div>
 
+    <!-- Filters Panel -->
+    <div class="filters-container">
+        <button class="filters-toggle" (click)="toggleFilters()">
+            <span class="icon">{{ showFilters ? '🔽' : '▶️' }}</span>
+            {{ showFilters ? 'Ocultar Filtros' : 'Mostrar Filtros' }}
+        </button>
+
+        <div class="filters-panel" *ngIf="showFilters">
+            <div class="filter-group">
+                <label>🔍 Buscar Territorio</label>
+                <input type="text" class="search-input" placeholder="Escribe el nombre del territorio..."
+                    [(ngModel)]="searchTerm" (input)="applyFilters()">
+            </div>
+
+            <div class="filter-group">
+                <label>📍 Tipo de Territorio</label>
+                <div class="checkbox-group">
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="selectedTypes.includes('Barri')"
+                            (change)="toggleType('Barri')">
+                        <span>Barrios</span>
+                    </label>
+                    <label class="checkbox-label">
+                        <input type="checkbox" [checked]="selectedTypes.includes('Districte')"
+                            (change)="toggleType('Districte')">
+                        <span>Distritos</span>
+                    </label>
+                </div>
+            </div>
+
+            <div class="filter-actions">
+                <button class="btn-clear-filters" (click)="clearFilters()">
+                    🔄 Limpiar Filtros
+                </button>
+                <div class="filter-results">
+                    Mostrando: {{ filteredDistricts.length + filteredNeighborhoods.length }} territorios
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="loading-container" *ngIf="loading">
         <div class="spinner"></div>
         <p>Cargando datos...</p>

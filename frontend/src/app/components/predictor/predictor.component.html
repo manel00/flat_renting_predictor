@@ -1,0 +1,92 @@
+<div class="predictor-container">
+    <div class="predictor-header">
+        <h2>🔮 Predictor Personalizado</h2>
+        <p class="subtitle">Predice el precio de alquiler para cualquier territorio y año</p>
+    </div>
+
+    <div class="predictor-form">
+        <div class="form-group">
+            <label for="territory-search">Buscar Territorio</label>
+            <input type="text" id="territory-search" class="search-input" placeholder="Escribe para buscar..."
+                (input)="onTerritorySearch($event)" [value]="searchTerm">
+        </div>
+
+        <div class="form-group">
+            <label for="territory">Selecciona Territorio</label>
+            <select id="territory" class="form-select" [(ngModel)]="selectedTerritory" [disabled]="loading">
+                <option value="">-- Selecciona un territorio --</option>
+                <option *ngFor="let territory of filteredTerritories" [value]="territory.name">
+                    {{ territory.name }} ({{ territory.type }})
+                </option>
+            </select>
+            <div class="territory-count" *ngIf="searchTerm">
+                {{ filteredTerritories.length }} territorios encontrados
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="year">Año de Predicción</label>
+            <div class="year-input-group">
+                <input type="number" id="year" class="form-input" [(ngModel)]="selectedYear" [min]="minYear"
+                    [max]="maxYear" [disabled]="loading">
+                <input type="range" class="year-slider" [(ngModel)]="selectedYear" [min]="minYear" [max]="maxYear"
+                    [disabled]="loading">
+            </div>
+            <div class="year-hint">Rango: {{ minYear }} - {{ maxYear }}</div>
+        </div>
+
+        <div class="form-actions">
+            <button class="btn-predict" (click)="predict()" [disabled]="loading || !selectedTerritory">
+                <span *ngIf="!loading">🎯 Predecir Precio</span>
+                <span *ngIf="loading" class="spinner-small"></span>
+                <span *ngIf="loading">Calculando...</span>
+            </button>
+            <button class="btn-reset" (click)="reset()" [disabled]="loading">
+                🔄 Limpiar
+            </button>
+        </div>
+    </div>
+
+    <div class="error-message" *ngIf="error">
+        <span class="error-icon">⚠️</span>
+        {{ error }}
+    </div>
+
+    <div class="prediction-result" *ngIf="prediction && !loading">
+        <div class="result-header">
+            <h3>📊 Resultado de la Predicción</h3>
+            <div class="result-territory">{{ prediction.territory }}</div>
+        </div>
+
+        <div class="result-cards">
+            <div class="result-card primary">
+                <div class="card-label">Precio Predicho</div>
+                <div class="card-value">{{ prediction.predicted_price.toFixed(2) }} €</div>
+                <div class="card-subtitle">Año {{ prediction.year }}</div>
+            </div>
+
+            <div class="result-card">
+                <div class="card-label">Intervalo de Confianza (95%)</div>
+                <div class="confidence-range">
+                    <div class="range-value">
+                        <span class="range-label">Mínimo</span>
+                        <span class="range-number">{{ prediction.confidence_interval.lower.toFixed(2) }} €</span>
+                    </div>
+                    <div class="range-separator">→</div>
+                    <div class="range-value">
+                        <span class="range-label">Máximo</span>
+                        <span class="range-number">{{ prediction.confidence_interval.upper.toFixed(2) }} €</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="result-info">
+            <p>
+                <strong>Interpretación:</strong> Hay un 95% de probabilidad de que el precio real
+                esté entre {{ prediction.confidence_interval.lower.toFixed(2) }}€ y
+                {{ prediction.confidence_interval.upper.toFixed(2) }}€.
+            </p>
+        </div>
+    </div>
+</div>

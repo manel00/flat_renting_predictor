@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { ApiService } from '../../services/api.service';
 import { Stats, HousingData, PredictionResponse } from '../../models/housing.model';
 import * as Plotly from 'plotly.js-dist-min';
@@ -8,7 +9,7 @@ import { forkJoin } from 'rxjs';
 @Component({
     selector: 'app-dashboard',
     standalone: true,
-    imports: [CommonModule],
+    imports: [CommonModule, FormsModule],
     templateUrl: './dashboard.component.html',
     styleUrls: ['./dashboard.component.scss']
 })
@@ -20,6 +21,14 @@ export class DashboardComponent implements OnInit {
     predictionsLoaded = false;
     modelMetrics: any = null;
     private neighborhoodsData: HousingData[] = [];
+    private districtsData: HousingData[] = [];
+
+    // Filter properties
+    searchTerm: string = '';
+    selectedTypes: string[] = ['Barri', 'Districte'];
+    filteredNeighborhoods: HousingData[] = [];
+    filteredDistricts: HousingData[] = [];
+    showFilters: boolean = false;
 
     constructor(private apiService: ApiService) { }
 
@@ -68,6 +77,9 @@ export class DashboardComponent implements OnInit {
             next: ({ districts, neighborhoods }) => {
                 this.loading = false;
                 this.neighborhoodsData = neighborhoods;
+                this.districtsData = districts;
+                this.filteredNeighborhoods = neighborhoods;
+                this.filteredDistricts = districts;
                 setTimeout(() => {
                     this.createDistrictsChart(districts);
                     this.createNeighborhoodsChart(neighborhoods, false);
@@ -347,5 +359,53 @@ export class DashboardComponent implements OnInit {
                 Plotly.newPlot('neighborhoodsChart', traces, layout, config);
             }
         });
+    }
+
+    toggleFilters() {
+        this.showFilters = !this.showFilters;
+    }
+
+    applyFilters() {
+        const search = this.searchTerm.toLowerCase();
+
+        // Filter neighborhoods
+        this.filteredNeighborhoods = this.neighborhoodsData.filter(item => {
+            const matchesSearch = !search || item.territory.toLowerCase().includes(search);
+            const matchesType = this.selectedTypes.includes(item.territory_type);
+            return matchesSearch && matchesType;
+        });
+
+        // Filter districts
+        this.filteredDistricts = this.districtsData.filter(item => {
+            const matchesSearch = !search || item.territory.toLowerCase().includes(search);
+            const matchesType = this.selectedTypes.includes(item.territory_type);
+            return matchesSearch && matchesType;
+        });
+
+        // Update charts with filtered data
+        setTimeout(() => {
+            if (this.filteredDistricts.length > 0) {
+                this.createDistrictsChart(this.filteredDistricts);
+            }
+            if (this.filteredNeighborhoods.length > 0) {
+                this.createNeighborhoodsChart(this.filteredNeighborhoods, this.predictionsLoaded);
+            }
+        }, 100);
+    }
+
+    clearFilters() {
+        this.searchTerm = '';
+        this.selectedTypes = ['Barri', 'Districte'];
+        this.applyFilters();
+    }
+
+    toggleType(type: string) {
+        const index = this.selectedTypes.indexOf(type);
+        if (index > -1) {
+            this.selectedTypes.splice(index, 1);
+        } else {
+            this.selectedTypes.push(type);
+        }
+        this.applyFilters();
     }
 }
