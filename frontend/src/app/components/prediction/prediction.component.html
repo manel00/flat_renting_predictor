@@ -1,0 +1,89 @@
+<div class="prediction-container">
+    <div class="prediction-card">
+        <h2>🔮 Predicción de Precios</h2>
+        <p class="subtitle">Predice el precio de alquiler para cualquier territorio y año</p>
+
+        <div class="form-container">
+            <div class="form-group">
+                <label for="territory">Territorio</label>
+                <div class="autocomplete-wrapper">
+                    <input type="text" id="territory" [(ngModel)]="searchTerm" (input)="filterTerritories()"
+                        (focus)="filterTerritories()" placeholder="Buscar territorio..." class="form-input" />
+                    <div class="autocomplete-dropdown" *ngIf="filteredTerritories.length > 0 && searchTerm">
+                        <div *ngFor="let territory of filteredTerritories.slice(0, 10)" class="autocomplete-item"
+                            (click)="selectTerritory(territory)">
+                            <span class="territory-name">{{ territory.name }}</span>
+                            <span class="territory-type">{{ territory.type }}</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="year">Año</label>
+                <input type="number" id="year" [(ngModel)]="selectedYear" [min]="2020" [max]="2030"
+                    class="form-input" />
+            </div>
+
+            <button (click)="predict()" [disabled]="loading || !selectedTerritory" class="predict-button">
+                <span *ngIf="!loading">Predecir Precio</span>
+                <span *ngIf="loading" class="loading-text">
+                    <span class="spinner-small"></span>
+                    Calculando...
+                </span>
+            </button>
+        </div>
+
+        <div class="error-message" *ngIf="error">
+            {{ error }}
+        </div>
+
+        <div class="prediction-result" *ngIf="prediction && !loading">
+            <div class="result-header">
+                <h3>Resultado de la Predicción</h3>
+                <div class="result-badge">{{ prediction.year }}</div>
+            </div>
+
+            <div class="result-territory">
+                <span class="label">Territorio:</span>
+                <span class="value">{{ prediction.territory }}</span>
+            </div>
+
+            <div class="price-display">
+                <div class="price-label">Precio Predicho</div>
+                <div class="price-value">
+                    {{ prediction.predicted_price | number:'1.2-2' }} €
+                </div>
+                <div class="price-sublabel">por mes</div>
+            </div>
+
+            <div class="confidence-interval">
+                <div class="interval-label">Intervalo de Confianza (95%)</div>
+                <div class="interval-bar">
+                    <div class="interval-range">
+                        <span class="range-value">{{ prediction.confidence_interval.lower | number:'1.0-0' }} €</span>
+                        <div class="range-bar">
+                            <div class="range-fill" [style.width.%]="100"></div>
+                            <div class="range-marker"></div>
+                        </div>
+                        <span class="range-value">{{ prediction.confidence_interval.upper | number:'1.0-0' }} €</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <div class="stat-label">Desviación Estándar</div>
+                    <div class="stat-value">± {{ prediction.std | number:'1.2-2' }} €</div>
+                </div>
+                <div class="stat-item">
+                    <div class="stat-label">Rango de Variación</div>
+                    <div class="stat-value">
+                        {{ (prediction.confidence_interval.upper - prediction.confidence_interval.lower) |
+                        number:'1.0-0' }} €
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

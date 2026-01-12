@@ -1,0 +1,29 @@
+<div class="visualization-container">
+  <div class="controls">
+    <h2>Visualizaciones 3D - Barrios de Barcelona</h2>
+    <div class="button-group">
+      <button [class.active]="currentView === 'surface'" (click)="switchView('surface')" class="view-button">
+        <span class="icon">📊</span>
+        Superficie 3D
+      </button>
+      <button [class.active]="currentView === 'scatter'" (click)="switchView('scatter')" class="view-button">
+        <span class="icon">🎯</span>
+        Dispersión 3D
+      </button>
+    </div>
+  </div>
+
+  <div class="plot-wrapper" *ngIf="!loading && !error">
+    <div id="plot3d" class="plot-container"></div>
+  </div>
+
+  <div class="loading-container" *ngIf="loading">
+    <div class="spinner"></div>
+    <p>Cargando visualización...</p>
+  </div>
+
+  <div class="error-container" *ngIf="error">
+    <p>{{ error }}</p>
+    <button (click)="load3DData()" class="retry-button">Reintentar</button>
+  </div>
+</div>

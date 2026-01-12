@@ -1,0 +1,76 @@
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>📊 Dashboard de Precios de Vivienda</h1>
+        <p class="subtitle">Análisis de precios de alquiler en Barcelona</p>
+    </div>
+
+    <div class="loading-container" *ngIf="loading">
+        <div class="spinner"></div>
+        <p>Cargando datos...</p>
+    </div>
+
+    <div class="error-container" *ngIf="error">
+        <p>{{ error }}</p>
+        <button (click)="loadTerritoryComparison()" class="retry-button">Reintentar</button>
+    </div>
+
+    <!-- Territory Comparison Charts -->
+    <div class="stats-section">
+        <h2>Comparación: Distritos vs Barrios</h2>
+
+        <div class="charts-grid">
+            <div class="chart-container">
+                <h3>Distritos (Districte)</h3>
+                <div id="districtsChart" class="plotly-chart"></div>
+            </div>
+
+            <!-- Model Metrics Section - Below Districts Chart -->
+            <div class="model-metrics-section" *ngIf="modelMetrics">
+                <h3>📈 Rendimiento del Modelo de Predicción</h3>
+                <div class="metrics-grid">
+                    <div class="metric-card primary">
+                        <div class="metric-label">R² Score (Test)</div>
+                        <div class="metric-value">{{ (modelMetrics.test_r2 * 100).toFixed(2) }}%</div>
+                        <div class="metric-description">Precisión del modelo: indica qué tan bien el modelo predice los
+                            precios. 100% = predicción perfecta.</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">CV R² Score</div>
+                        <div class="metric-value">{{ (modelMetrics.cv_mean * 100).toFixed(2) }}%</div>
+                        <div class="metric-description">Validación cruzada (5-fold): confirma que el modelo funciona
+                            bien con datos nuevos.</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">RMSE</div>
+                        <div class="metric-value">{{ modelMetrics.test_rmse.toFixed(2) }}</div>
+                        <div class="metric-description">Error cuadrático medio: penaliza más los errores grandes. Valor
+                            más bajo = mejor.</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="metric-label">MAE</div>
+                        <div class="metric-value">{{ modelMetrics.test_mae.toFixed(2) }}</div>
+                        <div class="metric-description">Error absoluto medio: promedio de la diferencia entre predicción
+                            y valor real.</div>
+                    </div>
+                </div>
+                <div class="model-info">
+                    <span class="model-badge">🤖 {{ modelMetrics.model_type.toUpperCase() }}</span>
+                    <span class="model-note">Modelo entrenado con características avanzadas (lag features, rolling
+                        averages, growth rates)</span>
+                </div>
+            </div>
+
+            <div class="chart-container">
+                <h3>Barrios (Barri) <span *ngIf="predictionsLoaded" class="predictions-badge">+ Predicciones</span></h3>
+                <div class="prediction-controls-inline">
+                    <button class="load-predictions-btn" (click)="loadPredictions()" [disabled]="loadingPredictions">
+                        <span *ngIf="!loadingPredictions">🔮 Cargar Predicciones 2026-2030</span>
+                        <span *ngIf="loadingPredictions" class="spinner-small"></span>
+                        <span *ngIf="loadingPredictions">Generando predicciones...</span>
+                    </button>
+                </div>
+                <div id="neighborhoodsChart" class="plotly-chart"></div>
+            </div>
+        </div>
+    </div>
+</div>

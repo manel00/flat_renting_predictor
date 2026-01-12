@@ -1,0 +1,30 @@
+<div class="app-container">
+  <nav class="navbar">
+    <div class="nav-brand">
+      <h1>🏠 Housing Price Predictor</h1>
+    </div>
+    <button class="menu-toggle" (click)="toggleMenu()">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <div class="nav-links" [class.active]="menuOpen">
+      <a routerLink="/dashboard" routerLinkActive="active" (click)="closeMenu()">
+        <span class="icon">📊</span>
+        Dashboard
+      </a>
+      <a routerLink="/visualization" routerLinkActive="active" (click)="closeMenu()">
+        <span class="icon">🎨</span>
+        Visualización 3D
+      </a>
+      <a routerLink="/prediction" routerLinkActive="active" (click)="closeMenu()">
+        <span class="icon">🔮</span>
+        Predicción
+      </a>
+    </div>
+  </nav>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>
