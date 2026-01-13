@@ -1,0 +1,29 @@
+services:
+  # Backend API Service
+  - type: web
+    name: housing-backend
+    env: docker
+    dockerfilePath: ./backend/Dockerfile
+    dockerContext: ./backend
+    plan: free
+    healthCheckPath: /
+    envVars:
+      - key: PORT
+        value: 8000
+      - key: PYTHON_VERSION
+        value: 3.11
+    buildCommand: echo "Building backend..."
+    
+  # Frontend Static Site
+  - type: web
+    name: housing-frontend
+    env: static
+    buildCommand: cd frontend && npm install && npm run build -- --configuration production
+    staticPublishPath: ./frontend/dist/frontend/browser
+    routes:
+      - type: rewrite
+        source: /*
+        destination: /index.html
+    envVars:
+      - key: NODE_VERSION
+        value: 20
