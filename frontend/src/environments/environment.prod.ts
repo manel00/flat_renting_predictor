@@ -6,7 +6,7 @@ export const environment = {
     get apiUrl(): string {
         // If running on Render (hostname contains 'onrender.com')
         if (typeof window !== 'undefined' && window.location.hostname.includes('onrender.com')) {
-            return 'https://housing-backend-prqc.onrender.com/api';
+            return 'https://housing-backend-fu9f.onrender.com/api';
         }
         // If running locally (Docker or localhost)
         return '/api';
