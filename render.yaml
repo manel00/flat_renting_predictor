@@ -19,8 +19,6 @@ services:
     env: docker
     dockerfilePath: ./frontend/Dockerfile
     dockerContext: ./frontend
-    dockerBuildArgs:
-      USE_RENDER_CONFIG: "true"
     plan: free
     envVars:
       - key: NODE_VERSION
