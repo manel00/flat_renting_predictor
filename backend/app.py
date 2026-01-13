@@ -15,15 +15,10 @@ app = FastAPI(
     version="1.0.0"
 )
 
-# Configure CORS
+# Configure CORS - Allow all origins for Render deployment
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "http://localhost:4200",  # Angular dev server
-        "http://localhost:4201",
-        "http://localhost",       # Docker frontend (nginx on port 80)
-        "http://localhost:80"
-    ],
+    allow_origins=["*"],  # Allow all origins (Render frontend URL changes)
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
