@@ -1,5 +1,5 @@
-// Production environment configuration
+// Default environment (uses development settings)
 export const environment = {
-    production: true,
-    apiUrl: '/api'  // Relative path - nginx will proxy to backend
+    production: false,
+    apiUrl: '/api'  // Nginx proxy for local Docker
 };
