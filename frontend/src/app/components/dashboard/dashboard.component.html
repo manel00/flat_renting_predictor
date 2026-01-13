@@ -114,4 +114,126 @@
             </div>
         </div>
     </div>
-</div>
+
+    <!-- Data Insights Section -->
+    <div class="insights-section" *ngIf="insights">
+        <h2>📊 Análisis de Datos e Inteligencia</h2>
+
+        <!-- Key Metrics Banner -->
+        <div class="key-metrics-banner">
+            <div class="metric-card-large highlight">
+                <div class="metric-icon">🏙️</div>
+                <div class="metric-content">
+                    <div class="metric-label">Barcelona - Precio Actual</div>
+                    <div class="metric-value-large">€{{ insights.trends.barcelona_city.current_price_2025.toFixed(2)
+                        }}/m²</div>
+                    <div class="metric-trend positive">+{{ insights.trends.barcelona_city.growth_5yr_pct }}% (5 años)
+                    </div>
+                </div>
+            </div>
+            <div class="metric-card-large">
+                <div class="metric-icon">🔮</div>
+                <div class="metric-content">
+                    <div class="metric-label">Predicción 2026</div>
+                    <div class="metric-value-large">€{{
+                        insights.predictions_2026.barcelona_2026.predicted_price.toFixed(2) }}/m²</div>
+                    <div class="metric-trend positive">+{{ ((insights.predictions_2026.barcelona_2026.predicted_price /
+                        insights.trends.barcelona_city.current_price_2025 - 1) * 100).toFixed(2) }}% esperado</div>
+                </div>
+            </div>
+            <div class="metric-card-large">
+                <div class="metric-icon">📈</div>
+                <div class="metric-content">
+                    <div class="metric-label">Distrito Top</div>
+                    <div class="metric-value-medium">{{ insights.trends.top_growing_districts[0].name }}</div>
+                    <div class="metric-trend positive">+{{ insights.trends.top_growing_districts[0].growth_5yr_pct }}%
+                        crecimiento</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Investment Opportunities -->
+        <div class="insights-grid">
+            <div class="insights-panel">
+                <h3>💰 Top 5 Oportunidades de Inversión</h3>
+                <div class="opportunities-list">
+                    <div class="opportunity-card"
+                        *ngFor="let opp of insights.investment_opportunities.slice(0, 5); let i = index">
+                        <div class="opportunity-rank">{{ i + 1 }}</div>
+                        <div class="opportunity-content">
+                            <div class="opportunity-name">{{ opp.neighborhood }}</div>
+                            <div class="opportunity-stats">
+                                <span class="stat-item">
+                                    <span class="stat-label">Precio:</span>
+                                    <span class="stat-value">€{{ opp.price_2025.toFixed(0) }}/m²</span>
+                                </span>
+                                <span class="stat-item">
+                                    <span class="stat-label">Crecimiento 5a:</span>
+                                    <span class="stat-value positive">+{{ opp.growth_5yr_pct }}%</span>
+                                </span>
+                            </div>
+                            <div class="opportunity-score">
+                                <div class="score-bar">
+                                    <div class="score-fill" [style.width.%]="(opp.investment_score / 50) * 100"></div>
+                                </div>
+                                <span class="score-value">Score: {{ opp.investment_score.toFixed(1) }}</span>
+                            </div>
+                            <div class="opportunity-badge" *ngIf="opp.vs_barcelona_avg < -30">
+                                {{ opp.vs_barcelona_avg < 0 ? -opp.vs_barcelona_avg : opp.vs_barcelona_avg |
+                                    number:'1.0-0' }}% bajo promedio </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- District Growth Comparison -->
+                <div class="insights-panel">
+                    <h3>📊 Crecimiento por Distrito (5 años)</h3>
+                    <div class="district-growth-list">
+                        <div class="district-item" *ngFor="let district of insights.trends.top_growing_districts">
+                            <div class="district-name">{{ district.name }}</div>
+                            <div class="district-growth-bar">
+                                <div class="growth-bar-fill" [style.width.%]="(district.growth_5yr_pct / 25) * 100">
+                                </div>
+                                <span class="growth-percentage">+{{ district.growth_5yr_pct }}%</span>
+                            </div>
+                            <div class="district-price">€{{ district.price_2025.toFixed(0) }}/m²</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 2026 Predictions -->
+            <div class="predictions-panel">
+                <h3>🔮 Predicciones 2026 - Top Distritos</h3>
+                <div class="predictions-grid">
+                    <div class="prediction-card"
+                        *ngFor="let pred of insights.predictions_2026.districts_2026.slice(0, 6)">
+                        <div class="prediction-district">{{ pred.district }}</div>
+                        <div class="prediction-values">
+                            <div class="prediction-row">
+                                <span class="prediction-label">2025:</span>
+                                <span class="prediction-value">€{{ pred.price_2025.toFixed(0) }}</span>
+                            </div>
+                            <div class="prediction-arrow">→</div>
+                            <div class="prediction-row">
+                                <span class="prediction-label">2026:</span>
+                                <span class="prediction-value highlight">€{{ pred.predicted_2026.toFixed(0) }}</span>
+                            </div>
+                        </div>
+                        <div class="prediction-growth" [class.high-growth]="pred.expected_growth_pct > 8">
+                            +{{ pred.expected_growth_pct }}%
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Key Findings -->
+            <div class="key-findings-panel">
+                <h3>🎯 Hallazgos Clave</h3>
+                <ul class="findings-list">
+                    <li *ngFor="let finding of insights.key_findings">{{ finding }}</li>
+                </ul>
+            </div>
+        </div>
+    </div>

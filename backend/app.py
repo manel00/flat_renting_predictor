@@ -3,6 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from typing import List, Dict, Any, Optional
 import uvicorn
+import json
 from data_processor import DataProcessor
 from ml_model import HousingPriceModel
 import os
@@ -76,6 +77,7 @@ async def root():
             "3d_data": "/api/3d-data",
             "territories": "/api/territories",
             "stats": "/api/stats",
+            "insights": "/api/insights",
             "predict": "/api/predict (POST)",
             "feature_importance": "/api/feature-importance",
             "model_metrics": "/api/model/metrics"
@@ -224,6 +226,33 @@ async def get_model_metrics():
             "success": True,
             "metrics": metrics
         }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
+
+@app.get("/api/insights")
+async def get_insights():
+    """Get comprehensive data analysis insights"""
+    try:
+        # Try to load insights from file
+        insights_path = os.path.join(os.path.dirname(__file__), 'housing_insights.json')
+        if not os.path.exists(insights_path):
+            insights_path = '/app/housing_insights.json'  # Docker path
+        
+        if not os.path.exists(insights_path):
+            raise HTTPException(
+                status_code=404, 
+                detail="Insights file not found. Run analysis script first."
+            )
+        
+        with open(insights_path, 'r', encoding='utf-8') as f:
+            insights = json.load(f)
+        
+        return {
+            "success": True,
+            "insights": insights
+        }
+    except HTTPException:
+        raise
     except Exception as e:
         raise HTTPException(status_code=500, detail=str(e))
 

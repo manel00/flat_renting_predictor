@@ -20,6 +20,8 @@ export class DashboardComponent implements OnInit {
     loadingPredictions = false;
     predictionsLoaded = false;
     modelMetrics: any = null;
+    insights: any = null;
+    loadingInsights = false;
     private neighborhoodsData: HousingData[] = [];
     private districtsData: HousingData[] = [];
 
@@ -36,6 +38,22 @@ export class DashboardComponent implements OnInit {
         this.loadStats();
         this.loadTerritoryComparison();
         this.loadModelMetrics();
+        this.loadInsights();
+    }
+
+    loadInsights() {
+        this.loadingInsights = true;
+        this.apiService.getInsights().subscribe({
+            next: (insights) => {
+                this.insights = insights;
+                this.loadingInsights = false;
+                console.log('Insights loaded:', insights);
+            },
+            error: (err) => {
+                console.error('Error loading insights:', err);
+                this.loadingInsights = false;
+            }
+        });
     }
 
     loadModelMetrics() {

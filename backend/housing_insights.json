@@ -1,0 +1,311 @@
+{
+  "generated_at": "2026-01-13T08:23:06.778285",
+  "data_source": "housing_data.csv",
+  "analysis_version": "1.0",
+  "statistics": {
+    "total_territories": 86,
+    "territory_types": {
+      "Barri": 73,
+      "Districte": 10,
+      "Comunitat Autònoma": 1,
+      "Àmbit funcional territorial": 1,
+      "Municipi": 1
+    },
+    "year_range": {
+      "start": "2000",
+      "end": "2025"
+    },
+    "data_quality": {
+      "total_cells": 2236,
+      "missing_values": 1042,
+      "completeness_pct": 53.4
+    }
+  },
+  "trends": {
+    "barcelona_city": {
+      "current_price_2025": 1111.06,
+      "price_2020": 964.81,
+      "price_2015": 734.94,
+      "growth_5yr_pct": 15.16,
+      "growth_10yr_pct": 51.18
+    },
+    "top_growing_districts": [
+      {
+        "name": "Sarrià-Sant Gervasi",
+        "price_2025": 1578.43,
+        "price_2020": 1305.73,
+        "growth_5yr_pct": 20.88
+      },
+      {
+        "name": "Sants-Montjuïc",
+        "price_2025": 996.18,
+        "price_2020": 846.88,
+        "growth_5yr_pct": 17.63
+      },
+      {
+        "name": "Eixample",
+        "price_2025": 1257.42,
+        "price_2020": 1075.44,
+        "growth_5yr_pct": 16.92
+      },
+      {
+        "name": "Les Corts",
+        "price_2025": 1288.0,
+        "price_2020": 1112.5,
+        "growth_5yr_pct": 15.78
+      },
+      {
+        "name": "Sant Andreu",
+        "price_2025": 922.08,
+        "price_2020": 797.82,
+        "growth_5yr_pct": 15.57
+      }
+    ],
+    "slowest_growing_districts": [
+      {
+        "name": "Sant Martí",
+        "price_2025": 1058.97,
+        "price_2020": 929.91,
+        "growth_5yr_pct": 13.88
+      },
+      {
+        "name": "Gràcia",
+        "price_2025": 1061.62,
+        "price_2020": 950.36,
+        "growth_5yr_pct": 11.71
+      },
+      {
+        "name": "Ciutat Vella",
+        "price_2025": 1018.77,
+        "price_2020": 913.66,
+        "growth_5yr_pct": 11.5
+      },
+      {
+        "name": "Horta-Guinardó",
+        "price_2025": 890.19,
+        "price_2020": 799.32,
+        "growth_5yr_pct": 11.37
+      },
+      {
+        "name": "Nou Barris",
+        "price_2025": 783.35,
+        "price_2020": 705.51,
+        "growth_5yr_pct": 11.03
+      }
+    ]
+  },
+  "investment_opportunities": [
+    {
+      "neighborhood": "la Clota",
+      "price_2025": 1107.28,
+      "growth_5yr_pct": 87.73,
+      "growth_2yr_pct": 33.56,
+      "volatility_pct": 22.03,
+      "vs_barcelona_avg": -0.34,
+      "investment_score": 43.96
+    },
+    {
+      "neighborhood": "Torre Baró",
+      "price_2025": 554.19,
+      "growth_5yr_pct": 5.38,
+      "growth_2yr_pct": 12.03,
+      "volatility_pct": 6.95,
+      "vs_barcelona_avg": -50.12,
+      "investment_score": 30.78
+    },
+    {
+      "neighborhood": "la Trinitat Nova",
+      "price_2025": 641.38,
+      "growth_5yr_pct": 9.34,
+      "growth_2yr_pct": -2.44,
+      "volatility_pct": 6.58,
+      "vs_barcelona_avg": -42.27,
+      "investment_score": 30.77
+    },
+    {
+      "neighborhood": "Ciutat Meridiana",
+      "price_2025": 553.16,
+      "growth_5yr_pct": 2.55,
+      "growth_2yr_pct": -9.57,
+      "volatility_pct": 6.49,
+      "vs_barcelona_avg": -50.21,
+      "investment_score": 29.84
+    },
+    {
+      "neighborhood": "Verdun",
+      "price_2025": 742.71,
+      "growth_5yr_pct": 12.46,
+      "growth_2yr_pct": -1.41,
+      "volatility_pct": 6.45,
+      "vs_barcelona_avg": -33.15,
+      "investment_score": 29.73
+    },
+    {
+      "neighborhood": "les Roquetes",
+      "price_2025": 694.13,
+      "growth_5yr_pct": 8.66,
+      "growth_2yr_pct": -5.47,
+      "volatility_pct": 6.01,
+      "vs_barcelona_avg": -37.53,
+      "investment_score": 29.57
+    },
+    {
+      "neighborhood": "la Prosperitat",
+      "price_2025": 805.98,
+      "growth_5yr_pct": 15.0,
+      "growth_2yr_pct": 2.68,
+      "volatility_pct": 6.57,
+      "vs_barcelona_avg": -27.46,
+      "investment_score": 29.17
+    },
+    {
+      "neighborhood": "el Carmel",
+      "price_2025": 771.1,
+      "growth_5yr_pct": 12.24,
+      "growth_2yr_pct": -0.7,
+      "volatility_pct": 6.25,
+      "vs_barcelona_avg": -30.6,
+      "investment_score": 29.05
+    },
+    {
+      "neighborhood": "la Teixonera",
+      "price_2025": 862.25,
+      "growth_5yr_pct": 20.03,
+      "growth_2yr_pct": 1.78,
+      "volatility_pct": 8.02,
+      "vs_barcelona_avg": -22.39,
+      "investment_score": 28.72
+    },
+    {
+      "neighborhood": "la Trinitat Vella",
+      "price_2025": 656.94,
+      "growth_5yr_pct": 2.7,
+      "growth_2yr_pct": -8.03,
+      "volatility_pct": 4.9,
+      "vs_barcelona_avg": -40.87,
+      "investment_score": 28.72
+    },
+    {
+      "neighborhood": "el Bon Pastor",
+      "price_2025": 915.07,
+      "growth_5yr_pct": 25.94,
+      "growth_2yr_pct": 26.24,
+      "volatility_pct": 10.07,
+      "vs_barcelona_avg": -17.64,
+      "investment_score": 28.19
+    },
+    {
+      "neighborhood": "Sant Genís dels Agudells",
+      "price_2025": 825.67,
+      "growth_5yr_pct": 12.96,
+      "growth_2yr_pct": 0.37,
+      "volatility_pct": 6.22,
+      "vs_barcelona_avg": -25.69,
+      "investment_score": 27.96
+    },
+    {
+      "neighborhood": "el Turó de la Peira",
+      "price_2025": 734.02,
+      "growth_5yr_pct": 5.51,
+      "growth_2yr_pct": -4.17,
+      "volatility_pct": 5.01,
+      "vs_barcelona_avg": -33.94,
+      "investment_score": 27.92
+    },
+    {
+      "neighborhood": "Porta",
+      "price_2025": 809.99,
+      "growth_5yr_pct": 11.83,
+      "growth_2yr_pct": -3.17,
+      "volatility_pct": 6.43,
+      "vs_barcelona_avg": -27.1,
+      "investment_score": 27.61
+    },
+    {
+      "neighborhood": "Diagonal Mar i el Front Marítim del Poblenou",
+      "price_2025": 1725.71,
+      "growth_5yr_pct": 47.3,
+      "growth_2yr_pct": 30.22,
+      "volatility_pct": 16.12,
+      "vs_barcelona_avg": 55.32,
+      "investment_score": 27.53
+    }
+  ],
+  "predictions_2026": {
+    "barcelona_2026": {
+      "predicted_price": 1203.46,
+      "confidence": "medium",
+      "trend": "increasing",
+      "annual_change_avg": 43.6
+    },
+    "districts_2026": [
+      {
+        "district": "Gràcia",
+        "price_2025": 1061.62,
+        "predicted_2026": 1173.36,
+        "expected_growth_pct": 10.53
+      },
+      {
+        "district": "Ciutat Vella",
+        "price_2025": 1018.77,
+        "predicted_2026": 1113.06,
+        "expected_growth_pct": 9.25
+      },
+      {
+        "district": "Sant Martí",
+        "price_2025": 1058.97,
+        "predicted_2026": 1150.82,
+        "expected_growth_pct": 8.67
+      },
+      {
+        "district": "Les Corts",
+        "price_2025": 1288.0,
+        "predicted_2026": 1398.92,
+        "expected_growth_pct": 8.61
+      },
+      {
+        "district": "Sarrià-Sant Gervasi",
+        "price_2025": 1578.43,
+        "predicted_2026": 1710.66,
+        "expected_growth_pct": 8.38
+      },
+      {
+        "district": "Eixample",
+        "price_2025": 1257.42,
+        "predicted_2026": 1361.34,
+        "expected_growth_pct": 8.26
+      },
+      {
+        "district": "Sants-Montjuïc",
+        "price_2025": 996.18,
+        "predicted_2026": 1069.54,
+        "expected_growth_pct": 7.36
+      },
+      {
+        "district": "Horta-Guinardó",
+        "price_2025": 890.19,
+        "predicted_2026": 954.93,
+        "expected_growth_pct": 7.27
+      },
+      {
+        "district": "Nou Barris",
+        "price_2025": 783.35,
+        "predicted_2026": 828.54,
+        "expected_growth_pct": 5.77
+      },
+      {
+        "district": "Sant Andreu",
+        "price_2025": 922.08,
+        "predicted_2026": 974.25,
+        "expected_growth_pct": 5.66
+      }
+    ]
+  },
+  "key_findings": [
+    "Dataset contains 86 territories with 53.4% data completeness",
+    "Barcelona city prices grew 15.16% in the last 5 years (2020-2025)",
+    "Sarrià-Sant Gervasi is the fastest-growing district with 20.88% growth",
+    "la Clota shows highest investment potential with score 43.96",
+    "Barcelona prices predicted to reach €1203.46/m² in 2026"
+  ]
+}

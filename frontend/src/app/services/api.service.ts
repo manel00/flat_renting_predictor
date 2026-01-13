@@ -70,4 +70,9 @@ export class ApiService {
         return this.http.get<{ success: boolean; metrics: any }>(`${this.baseUrl}/model/metrics`)
             .pipe(map(response => response.metrics));
     }
+
+    getInsights(): Observable<any> {
+        return this.http.get<{ success: boolean; insights: any }>(`${this.baseUrl}/insights`)
+            .pipe(map(response => response.insights));
+    }
 }
